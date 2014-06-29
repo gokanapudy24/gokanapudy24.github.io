@@ -1,0 +1,59 @@
+body{
+    margin: 0;
+    background: #6d0019; /* Old browsers */
+    background: -moz-linear-gradient(top,  #6d0019 0%, #8f0222 56%, #a90329 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6d0019), color-stop(56%,#8f0222), color-stop(100%,#a90329)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #6d0019 0%,#8f0222 56%,#a90329 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #6d0019 0%,#8f0222 56%,#a90329 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #6d0019 0%,#8f0222 56%,#a90329 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #6d0019 0%,#8f0222 56%,#a90329 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6d0019', endColorstr='#a90329',GradientType=0 ); /* IE6-9 */
+
+
+}
+.headers{
+    position:fixed;
+    color: white;
+    background: #a90329; /* Old browsers */
+    background: -moz-linear-gradient(top,  #a90329 0%, #8f0222 0%, #6d0019 0%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a90329), color-stop(0%,#8f0222), color-stop(0%,#6d0019)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #a90329 0%,#8f0222 0%,#6d0019 0%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #a90329 0%,#8f0222 0%,#6d0019 0%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #a90329 0%,#8f0222 0%,#6d0019 0%); /* IE10+ */
+    background: linear-gradient(to bottom,  #a90329 0%,#8f0222 0%,#6d0019 0%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=0 ); /* IE6-9 */
+    width: 100%;
+    height: 50px;
+    text-indent: 15px;     
+
+}
+.home{
+    display: inline-block;
+    float:right;
+    line-height: 50px;
+    padding-right: 20px;
+    font-size: 20px;
+    border-left: 1px solid black;
+    padding-left: 7px;
+
+}
+.home:hover{
+    background-color: #6495ED;
+}
+.home   a:link{color:white;text-decoration: none;}
+.home   a:visited{color:white;text-decoration: none;}
+.home   a:hover{color:yellow;text-decoration: none;}
+.home   a:active{color:green;text-decoration: none;}
+#hw{
+    display: inline;
+    line-height: 50px;
+}    
+.button{
+    position: static;
+    padding-top:50px;
+    background-color: white;
+    height: 20px;
+    width: 95%;
+    margin: 0 auto;
+}
+       

@@ -1,0 +1,53 @@
+
+<html>
+    <head>
+        <script>
+            
+            console.log ("YOLO SWAG");
+            
+            var resp = prompt("Are you a boy or a girl?")
+            if(contains(resp, "boy") ||  contains(resp, "neither")){
+                var resp1 = prompt ("That's amazing");
+                if (contains (resp1, "thank you")) {
+                    alert ("You're Welcome");
+                }
+                else{
+                    alert ("Rude");
+                }
+            }
+            else if(contains(resp,"girl")){
+                var resp2= prompt ("Damn how them periods coming along?");
+                    if (contains (resp2, "amazing")){
+                        alert ("Don't worry, they stop at 45");
+                    }
+                    else{
+                        alert ("MAKE ME");
+                    }
+            }
+            else{
+                var resp3= prompt("Is that even a thing?");
+                    if (contains (resp3, "yes")){
+                        alert ("No it ain't");
+                    }
+                    else{
+                        alert ("I know")
+                    }
+                
+            }
+            
+            function contains(text, search){
+                var n = text.indexOf(search);
+                if(n==-1){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+                        
+        </script>          
+    </head>
+    <body>
+        
+    </body>
+</html>
