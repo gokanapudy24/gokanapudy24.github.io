@@ -1,0 +1,229 @@
+<html>
+    <head>
+        <title>Flappy Bird</title>
+        <style>
+            @font-face{
+                font-family: flappybird;
+                src: url('04B_19__.TTF');
+            }
+            #Canvas{
+                width: 640px;
+                height: 480px;
+                background-color: steelblue; 
+                position: relative;
+                font-family: flappybird;
+            } 
+            #bird{
+                width: 45px;
+                height: 32px;
+                position: absolute;
+                background-size: cover;
+                background-image: url(bird.png);
+                top: 50% ;
+                left: 35%;
+                z-index: 1000;
+            }    
+            .pipe{
+                width: 50px;
+                background-color: forestgreen;
+                position: absolute;
+                left: 100%;
+                height: 150px;
+            }            
+            #score{
+                position: absolute;
+                color: white;
+                font-size: 40px;
+                width: 100%;
+                text-align: center;
+                top: 40%;
+                z-index: 999;
+                text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+            }
+            #scoreBoard {
+                position: relative;
+                color: black;
+                left: -50%;
+                top: -50%;   
+                text-align: center;
+                background-color: burlywood;
+                border: 3px solid black;
+                display: none;
+                z-index: 1001;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="Canvas">
+             <div id='bird'>
+                 
+            </div>
+            <div id="score">
+                0
+            </div>
+            <div style="position:absolute; top:50%; left:50%">
+            <div id="scoreBoard">
+                Score
+                <div id="theRealScore">
+                    
+                </div>
+                <br>
+                Best
+                <div id="best">
+                    
+                </div>
+            </div>
+        </div> 
+        </div> 
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script>
+            $(function(){
+                //controls how fast the game Loops
+                var gameLoopSpeed = 100;
+                var pattern = 0;
+                var playerLost = false;
+                function gameLoop (){
+                    fall(); 
+                    pattern++;
+                    if (pattern % 9 === 0){
+                             addPipe();
+                     }
+                    theRealCheckCollisions();
+                    score();
+                      if(!checkCollisions($('#bird'),$("#Canvas"))){
+                          die();                          
+                      }
+                }    
+                    
+                    
+    
+                $("#Canvas").click(function(){
+                   jump(); 
+                });          
+                var gameLoopID = window.setInterval(gameLoop, gameLoopSpeed);                
+                var velocity = 0;
+                var gravity = 1;
+                var BirdJump = false;
+                function fall (){
+                    
+                    if (!BirdJump){
+                        velocity = velocity + gravity;            
+                        $("#bird").animate ({'top':'+='+velocity+'%'}, gameLoopSpeed, "linear");
+                    }
+                }
+                function jump (){
+                    if(playerLost){
+                        return;
+                    }
+                    velocity = 0; 
+                    BirdJump = true;
+                    $("#bird").stop(true).animate({'top':'-='+9+'%'}, gameLoopSpeed, "linear", function (){
+                        BirdJump = false;
+                        fall();                        
+                    });             
+                }
+                function addPipe (){
+                    var minHeight = 15;
+                    var diffHeight = 30;
+                    var gap = 35;
+                    var pipeSpeed = 5000;
+                    var randomHeight = Math.floor(Math.random()*diffHeight+minHeight);
+                    var bottomHeight = 100 - (gap + randomHeight);                    
+                    $('<div/>').css("height", randomHeight+"%").addClass('Pipe').appendTo($('#Canvas'))
+                            .animate({"left":'-50%'}, pipeSpeed, 'linear', function(){
+                                $(this).remove();
+                            });
+                    $('<div/>').css({
+                        "height": bottomHeight+"%",
+                        "bottom": "0px"
+                    })
+                    .addClass('Pipe').appendTo($('#Canvas'))
+                            .animate({"left":'-50%'}, pipeSpeed, 'linear', function(){
+                                $(this).remove();       
+                            });                                        
+                }                      
+                function checkCollisions (el1, el2){
+                    var el1Top = el1.position().top;   
+                    var el1Left = el1.position().left;
+                    var el1Width = el1.width();
+                    var el1Height = el1.height();
+                    var el2Top = el2.position().top;   
+                    var el2Left = el2.position().left;
+                    var el2Width = el2.width();
+                    var el2Height = el2.height();                      
+                    return!(el1Width + el1Left < el2Left || el1Top > el2Top + el2Height || el1Top + el1Height < el2Top || el1Left > el2Width + el2Left
+                            );
+                }
+                function theRealCheckCollisions(){                                            
+                    $(".Pipe").each(function (){
+                        var pipeLeft = $(this).position().left;
+                        if (pipeLeft <= 225){
+                            if(checkCollisions($('#bird'),$(this))){
+                                die();
+                            }
+                        }
+                    });                   
+                }
+                
+                function die(){                    
+                    clearInterval(gameLoopID);
+                    playerLost = true;
+                            $(".Pipe").stop();                            
+                    $("#theRealScore").text( theRealScore );
+                    $('#bird').stop().animate({'top':'93%'}, 600);
+                    $('#scoreBoard').slideDown();
+                    $('#score').slideUp();
+                    var lastHighScore = getCookie('highScore');
+                    console.log(lastHighScore);
+                    if(lastHighScore == "" || theRealScore > lastHighScore){
+                        setCookie('highScore', theRealScore, 999);
+                        $('#best').text(theRealScore);
+                    }                   
+                    else{
+                        $('#best').text(lastHighScore);
+                    }
+                    
+                }     
+                                
+                var lastClosestPipe = 0;
+                var theRealScore = 0;
+                
+                function score (){
+                    var smallestDist = 9999;
+                    var closestPipe = 0;
+                    $(".Pipe").each(function (){
+                        var currentDist = ($("#bird").position().left) - ($(this).position().left + $(this).width());
+                        if(currentDist > 0 && currentDist < smallestDist){
+                            smallestDist=currentDist;
+                            closestPipe=$(this);
+                        }
+                    });
+                    if (closestPipe !==0 &&!closestPipe.is(lastClosestPipe)){
+                        theRealScore++;
+                        $("#score").text( theRealScore );
+                        console.log(theRealScore);
+                    }
+                    lastClosestPipe=closestPipe;
+                }
+                
+                function setCookie(cname, cvalue, exdays) {
+                    var d = new Date();
+                    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                    var expires = "expires="+d.toGMTString();
+                    document.cookie = cname + "=" + cvalue + "; " + expires;
+                }
+                
+                function getCookie(cname) {
+                    var name = cname + "=";
+                    var ca = document.cookie.split(';');
+                    for(var i=0; i<ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0)===' ') c = c.substring(1);
+                        if (c.indexOf(name) !== -1) return c.substring(name.length,c.length);
+                    }
+                    return "";
+                }
+            });
+        </script>
+    </body>
+</html>
