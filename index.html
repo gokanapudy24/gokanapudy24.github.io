@@ -1,10 +1,13 @@
 <html>
     <head>
         <link rel='stylesheet' type='text/css' href='NavBar.css'>
-        <style>       
+            
+       <style>       
             .inside{
                 padding-top: 55px;
-                background-color: white;
+                background: url("background.jpg");
+                background-repeat: no-repeat;
+                background-size: 100%;
                 height: 100%;
                 width: 95%;
                 margin: 0 auto;
@@ -12,8 +15,19 @@
                 padding-left: 10px;
             }
             #image{                
-            width:200px; 
-            height: auto;   
+                width:200px; 
+                height: auto;   
+            }
+            #info{
+                line-height: 100px;
+                font-size: 60px;
+                font-family: "Brush Script MT", cursive;
+                color: aqua;
+            }
+            #hobbies{
+                font-size: 50px;
+                font-family: "Brush Script MT", cursive;
+                color: blue;
             }
         </style>
     </head>
@@ -26,19 +40,21 @@
                 <a href="IndexContact.html">Contact</a>
             </div>
             <div class='home'>
-                <a href="IndexAbout.html">About</a>
+                <a href="IndexResume.html">Resume</a>
             </div>
             <div class='home'>
                 <a href="IndexHome.html">Home</a>
             </div>
             
         </div>     
-       
         <div class='inside'>
-            
-            <h1> Hello World! </h1>
-            <h2> This is my Website! </h2>
+            <div id="info">
+                Aspiring Programmer
+            </div>
             <img src='graduation.jpeg' id='image'>
+            <h1> Arcadia High School '14 </h1>                      
+            <h1> University of California - Riverside '18 </h1>            
+            
             
         </div>
     </body>
